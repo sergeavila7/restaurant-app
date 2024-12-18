@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import FirebaseState from './context/firebase/firebaseState';
 import {
   NewOrder,
   DishDetail,
@@ -15,7 +16,7 @@ const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
   return (
-    <>
+    <FirebaseState>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -66,7 +67,7 @@ function App(): React.JSX.Element {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </FirebaseState>
   );
 }
 
