@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { Action, FirebaseStateType } from '../types';
-
+import firebase from 'firebase/compat/app'; 
+import {  FirebaseStateType } from '../types';
 
 interface FirebaseContextType {
   state: FirebaseStateType;  
-  dispatch: React.Dispatch<Action>; 
+  firebase: any; 
 }
 
 const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined);

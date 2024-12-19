@@ -2,6 +2,7 @@ import React, {useReducer} from 'react';
 import FirebaseReducer from './firebaseReducer';
 import FirebaseContext from './firebaseContext';
 import {FirebaseStateType, Action} from '../types';
+import firebase from '../../firebase';
 
 const initialState: FirebaseStateType = {
   menu: [],
@@ -12,13 +13,12 @@ interface FirebaseStateProps {
 }
 
 const FirebaseState: React.FC<FirebaseStateProps> = ({children}) => {
-  // Usar useReducer con el estado y reducer correctos
   const [state, dispatch] = useReducer<
     React.Reducer<FirebaseStateType, Action>
   >(FirebaseReducer, initialState);
 
   return (
-    <FirebaseContext.Provider value={{state, dispatch}}>
+    <FirebaseContext.Provider value={{state, firebase}}>
       {children}
     </FirebaseContext.Provider>
   );
