@@ -8,6 +8,17 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "extra": {
+      "firebase": {
+        "apiKey": "AIzaSyBqKyWeO6G8YcS3gg38_9mU3P41Vd0GdU4",
+        "authDomain": "restaurant-9c673.firebaseapp.com",
+        "projectId": "restaurant-9c673",
+        "storageBucket": "restaurant-9c673.firebasestorage.app",
+        "messagingSenderId": "303581307981",
+        "appId": "1:303581307981:web:16fe30646215b13e9a6804",
+        "measurementId": "G-WBC2Q8K2VQ"
+      }
+    },
     "ios": {
       "supportsTablet": true
     },
