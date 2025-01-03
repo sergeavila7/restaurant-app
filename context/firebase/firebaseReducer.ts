@@ -1,8 +1,12 @@
-import { FirebaseStateType, Action } from '../types';
+import { GET_PRODUCTS } from "@/types";
+import { FirebaseStateType, Action } from "../types";
 
-const FirebaseReducer = (state: FirebaseStateType, action: Action): FirebaseStateType => {
+const FirebaseReducer = (
+  state: FirebaseStateType,
+  action: Action
+): FirebaseStateType => {
   switch (action.type) {
-    case 'SET_MENU':
+    case GET_PRODUCTS:
       return { ...state, menu: action.payload };
     default:
       return state;

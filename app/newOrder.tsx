@@ -4,7 +4,6 @@ import { Link } from "expo-router";
 import { Button, ButtonGroup, ButtonText } from "@/components/ui/button";
 import { Box } from "@/components/ui/box";
 import globalStyles from "../styles/global";
-import { Colors } from "../constants/Colors";
 
 export default function NewOrder() {
   const { container, content } = globalStyles;

@@ -1,12 +1,14 @@
-import { createContext } from 'react';
-import firebase from 'firebase/compat/app'; 
-import {  FirebaseStateType } from '../types';
+import { createContext } from "react";
+import { FirebaseStateType } from "../types";
 
 interface FirebaseContextType {
-  state: FirebaseStateType;  
-  firebase: any; 
+  state: FirebaseStateType;
+  firebase: any;
+  getProducts: () => void;
 }
 
-const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined);
+const FirebaseContext = createContext<FirebaseContextType | undefined>(
+  undefined
+);
 
 export default FirebaseContext;
