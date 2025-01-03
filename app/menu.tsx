@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import FirebaseContext from "@/context/firebase/firebaseContext";
 import { Box } from "@/components/ui/box";
@@ -16,11 +16,21 @@ interface Dish {
   price: string;
 }
 
+const categoryTranslations: Record<string, string> = {
+  breakfast: "Desayuno",
+  lunch: "Comida",
+  dinner: "Cena",
+  drink: "Bebida",
+  dessert: "Postres",
+  salads: "Ensaladas",
+};
+
 export default function Menu() {
   const { container, content } = globalStyles;
 
   const context = useContext(FirebaseContext);
   const menu = context?.state.menu;
+  const previousCategory = useRef<string | null>(null);
 
   useEffect(() => {
     if (context && context.getProducts) {
@@ -28,12 +38,22 @@ export default function Menu() {
     }
   }, []);
 
+  const getCategoryTranslation = (category: string): string => {
+    return categoryTranslations[category] || category.toUpperCase();
+  };
+
   const showHeading = (category: string) => {
-    return (
-      <Divider>
-        <Text>{category}</Text>
-      </Divider>
-    );
+    if (category !== previousCategory.current) {
+      previousCategory.current = category;
+      return (
+        <Box className="bg-gray-950">
+          <Text className="text-yellow-400 ml-5" bold size="md">
+            {getCategoryTranslation(category)}
+          </Text>
+        </Box>
+      );
+    }
+    return null;
   };
 
   const typedMenu: Dish[] =
@@ -44,10 +64,11 @@ export default function Menu() {
 
   const renderMenuItem = ({ item }: { item: Dish }) => {
     const { dishName, image, description, category, id, price } = item;
+
     return (
       <>
+        {showHeading(category)}
         <View key={id} style={styles.menuItem}>
-          {showHeading(category)}
           {image && (
             <Image
               source={{ uri: image }}
@@ -59,7 +80,7 @@ export default function Menu() {
             <Text className="text-slate-950" size="lg" bold>
               {dishName}
             </Text>
-            <Text className="text-neutral-400	" size="md">
+            <Text className="text-neutral-400" size="md">
               {description}
             </Text>
             <Text className="text-slate-950" size="sm" bold>
@@ -99,6 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     alignItems: "center",
+    backgroundColor: "#FFF",
   },
   image: {
     width: 100,
