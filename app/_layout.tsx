@@ -40,7 +40,7 @@ export default function RootLayout() {
           <OrdersState>
             <Stack
               screenOptions={{
-                headerStyle: { backgroundColor: "#FFDA00" },
+                headerStyle: { backgroundColor: "#EAB308" },
                 headerTitleStyle: { fontWeight: "bold" },
               }}
             >
