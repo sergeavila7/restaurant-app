@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Pressable } from "react-native";
+import { Link, router } from "expo-router";
 import FirebaseContext from "@/context/firebase/firebaseContext";
+import OrderContext from "@/context/orders/ordersContext";
 import { Box } from "@/components/ui/box";
 import { Divider } from "@/components/ui/divider";
 import { Image } from "@/components/ui/image";
@@ -14,6 +16,7 @@ interface Dish {
   description: string;
   category: string;
   price: string;
+  available: boolean;
 }
 
 const categoryTranslations: Record<string, string> = {
@@ -28,13 +31,15 @@ const categoryTranslations: Record<string, string> = {
 export default function Menu() {
   const { container, content } = globalStyles;
 
-  const context = useContext(FirebaseContext);
-  const menu = context?.state.menu;
+  const firebaseContext = useContext(FirebaseContext);
+  const orderContext = useContext(OrderContext);
+
+  const menu = firebaseContext?.state.menu;
   const previousCategory = useRef<string | null>(null);
 
   useEffect(() => {
-    if (context && context.getProducts) {
-      context.getProducts();
+    if (firebaseContext && firebaseContext.getProducts) {
+      firebaseContext.getProducts();
     }
   }, []);
 
@@ -63,32 +68,41 @@ export default function Menu() {
       : [];
 
   const renderMenuItem = ({ item }: { item: Dish }) => {
-    const { dishName, image, description, category, id, price } = item;
+    const { dishName, image, description, category, id, price, available } =
+      item;
 
     return (
       <>
-        {showHeading(category)}
-        <View key={id} style={styles.menuItem}>
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={styles.image}
-              alt={dishName}
-            />
-          )}
-          <View style={styles.containerText}>
-            <Text className="text-slate-950" size="lg" bold>
-              {dishName}
-            </Text>
-            <Text className="text-neutral-400" size="md">
-              {description}
-            </Text>
-            <Text className="text-slate-950" size="sm" bold>
-              Precio: ${price}
-            </Text>
+        <Pressable
+          onPress={() => {
+            const { available, ...dish2 } = item;
+            orderContext.selectDish(dish2);
+            router.push("/dishDetail");
+          }}
+        >
+          {showHeading(category)}
+          <View key={id} style={styles.menuItem}>
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={styles.image}
+                alt={dishName}
+              />
+            )}
+            <View style={styles.containerText}>
+              <Text className="text-slate-950" size="lg" bold>
+                {dishName}
+              </Text>
+              <Text className="text-neutral-400" size="md">
+                {description}
+              </Text>
+              <Text className="text-slate-950" size="sm" bold>
+                Precio: ${price}
+              </Text>
+            </View>
           </View>
-        </View>
-        <Divider className="my-0.5" />
+          <Divider className="my-0.5" />
+        </Pressable>
       </>
     );
   };

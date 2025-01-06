@@ -1,9 +1,12 @@
 export interface FirebaseStateType {
-  menu: string[]; 
+  menu: string[];
 }
-  
-  export interface Action {
-    type: string;  
-    payload?: any; 
-  }
-  
+export interface OrderStateType {
+  dish: string[];
+  order: string[];
+}
+
+export interface Action {
+  type: string;
+  payload?: any;
+}
