@@ -1,7 +1,7 @@
 import React, { Reducer, useReducer } from "react";
 import OrdersReducer from "../../../context/orders/ordersReducer";
 import OrdersContext from "../../../context/orders/ordersContext";
-import { SELECT_PRODUCT } from "@/types";
+import { CONFIRM_ORDER_DISH, SELECT_PRODUCT } from "@/types";
 import { Action, OrderStateType } from "@/context/types";
 
 const initialState: OrderStateType = {
@@ -26,8 +26,15 @@ const OrdersState: React.FC<OrdersStateProps> = ({ children }) => {
     });
   };
 
+  const saveOrder = (order: any) => {
+    dispatch({
+      type: CONFIRM_ORDER_DISH,
+      payload: order,
+    });
+  };
+
   return (
-    <OrdersContext.Provider value={{ state, dispatch, selectDish }}>
+    <OrdersContext.Provider value={{ state, dispatch, selectDish, saveOrder }}>
       {children}
     </OrdersContext.Provider>
   );

@@ -32,7 +32,7 @@ export default function Menu() {
   const { container, content } = globalStyles;
 
   const firebaseContext = useContext(FirebaseContext);
-  const orderContext = useContext(OrderContext);
+  const { selectDish } = useContext(OrderContext);
 
   const menu = firebaseContext?.state.menu;
   const previousCategory = useRef<string | null>(null);
@@ -76,7 +76,7 @@ export default function Menu() {
         <Pressable
           onPress={() => {
             const { available, ...dish2 } = item;
-            orderContext.selectDish(dish2);
+            selectDish(dish2);
             router.push("/dishDetail");
           }}
         >

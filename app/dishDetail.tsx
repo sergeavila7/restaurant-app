@@ -13,9 +13,11 @@ import { Fab, FabIcon, FabLabel } from "@/components/ui/fab";
 import globalStyles from "@/styles/global";
 
 export default function DishDetail() {
-  const ordersContext = useContext(OrdersContext);
+  const {
+    state: { dish },
+  } = useContext(OrdersContext);
 
-  const { dishName, image, description, price } = ordersContext.state.dish;
+  const { dishName, image, description, price } = dish;
 
   const [isPressed, setIsPressed] = useState(false);
 
