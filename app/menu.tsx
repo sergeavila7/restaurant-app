@@ -8,16 +8,7 @@ import { Divider } from "@/components/ui/divider";
 import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import globalStyles from "../styles/global";
-
-interface Dish {
-  id: string;
-  dishName: string;
-  image?: string;
-  description: string;
-  category: string;
-  price: string;
-  available: boolean;
-}
+import { Dish } from "@/context/types";
 
 const categoryTranslations: Record<string, string> = {
   breakfast: "Desayuno",
@@ -83,11 +74,7 @@ export default function Menu() {
           {showHeading(category)}
           <View key={id} style={styles.menuItem}>
             {image && (
-              <Image
-                source={{ uri: image }}
-                style={styles.image}
-                alt={dishName}
-              />
+              <Image size="md" source={{ uri: image }} alt={dishName} />
             )}
             <View style={styles.containerText}>
               <Text className="text-slate-950" size="lg" bold>
@@ -135,11 +122,6 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: "center",
     backgroundColor: "#FFF",
-  },
-  image: {
-    width: 100,
-    height: 100,
-    resizeMode: "cover",
   },
   containerText: {
     margin: 5,

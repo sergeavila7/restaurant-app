@@ -53,7 +53,6 @@ export default function DishForm() {
         },
         {
           text: "Cancelar",
-          onPress: () => {},
           style: "cancel",
         },
       ]
@@ -102,7 +101,7 @@ export default function DishForm() {
       >
         <FabIcon as={CirclePlus} className="text-slate-950" />
         <FabLabel className="text-slate-950" bold>
-          Agregar Platillo
+          Agregar al Pedido
         </FabLabel>
       </Fab>
     </>
