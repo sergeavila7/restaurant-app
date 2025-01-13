@@ -8,13 +8,17 @@ import { Heading } from "@/components/ui/heading";
 import { Center } from "@/components/ui/center";
 import { Image } from "@/components/ui/image";
 
-import OrdersContext from "@/context/orders/ordersContext";
+import OrdersContext from "@/context/order/orderContext";
 import { HStack } from "@/components/ui/hstack";
 import { Divider } from "@/components/ui/divider";
-import { useEvent } from "react-native-reanimated";
 import { Order } from "@/context/types";
+import { ButtonGroup, ButtonText } from "@/components/ui/button";
+import { Link, router } from "expo-router";
+import { ShoppingBasket } from "lucide-react-native";
 
 export default function OrderSummary() {
+  const [isPressed, setIsPressed] = useState(false);
+
   const {
     state: { order, total },
     showSummary,
@@ -32,6 +36,26 @@ export default function OrderSummary() {
     showSummary(newTotal);
   };
 
+  const handlePress = () => {
+    setIsPressed(true);
+    Alert.alert(
+      "Revisa tu pedido",
+      "Una vez que realizas tu pedido, no podras cambiarlo",
+      [
+        {
+          text: "Confirmar",
+          onPress: () => {
+            router.push("/orderProgress");
+          },
+        },
+        {
+          text: "Revisar",
+          style: "cancel",
+        },
+      ]
+    );
+  };
+
   const renderOrderItem = ({ item }: { item: Order }) => {
     const { dishName, image, price, quantity } = item;
 
@@ -41,9 +65,9 @@ export default function OrderSummary() {
           {image && <Image size="md" source={{ uri: image }} alt={dishName} />}
         </Box>
         <Box className="w-4/5">
-          <Text className="text-slate-950">{dishName}</Text>
-          <Text className="text-slate-950">Cantidad: {quantity}</Text>
-          <Text className="text-slate-950">Precio: ${price}</Text>
+          <Text className="text-primary-900">{dishName}</Text>
+          <Text className="text-primary-900">Cantidad: {quantity}</Text>
+          <Text className="text-primary-900">Precio: ${price}</Text>
           <Divider className="my-0.5" />
         </Box>
       </HStack>
@@ -51,22 +75,51 @@ export default function OrderSummary() {
   };
 
   return (
-    <Center>
-      <Box className="w-full p-4">
-        <Heading className="text-center" size="xl" bold>
-          Resumen Pedido
-        </Heading>
-        <FlatList
-          data={order}
-          renderItem={renderOrderItem}
-          keyExtractor={(item, i) => item.id + i}
-        />
-      </Box>
-      <Box>
-        <Text className="text-slate-950 mt-4" bold>
-          Total a Pagar: ${total || 0}
-        </Text>
-      </Box>
-    </Center>
+    <>
+      <Center>
+        <Box className="w-full p-4">
+          <Heading className="text-center" size="xl" bold>
+            Resumen Pedido
+          </Heading>
+          <FlatList
+            data={order}
+            renderItem={renderOrderItem}
+            keyExtractor={(item, i) => item.id + i}
+          />
+        </Box>
+        <Box>
+          <Text className="text-primary-900 mt-4" bold>
+            Total a Pagar: ${total || 0}
+          </Text>
+        </Box>
+        <ButtonGroup className="w-full px-4 mt-5">
+          <Button className="px-4 py-2 rounded-md" action="primary">
+            <ButtonText className="text-primary-900 bold uppercase">
+              <Link href="/menu">Seguir pediendo</Link>
+            </ButtonText>
+          </Button>
+        </ButtonGroup>
+      </Center>
+      <Fab
+        style={[styles.fab, isPressed && styles.fabPressed]}
+        size="md"
+        placement="bottom center"
+        onPress={handlePress}
+      >
+        <FabIcon as={ShoppingBasket} className="text-primary-900" />
+        <FabLabel className="text-primary-900" bold>
+          Ordenar Pedido
+        </FabLabel>
+      </Fab>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  fab: {
+    backgroundColor: "white",
+  },
+  fabPressed: {
+    backgroundColor: "#d1d5db",
+  },
+});

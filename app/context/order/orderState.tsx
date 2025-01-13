@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
-import OrdersReducer from "../../../context/orders/ordersReducer";
-import OrdersContext from "../../../context/orders/ordersContext";
+import OrderReducer from "../../../context/order/orderReducer";
+import OrderContext from "../../../context/order/orderContext";
 import { CONFIRM_ORDER_DISH, SELECT_PRODUCT, SHOW_SUMMARY } from "@/types";
 import { Action, Dish, Order, OrderStateType } from "@/context/types";
 
@@ -10,13 +10,13 @@ const initialState: OrderStateType = {
   total: 0,
 };
 
-interface OrdersStateProps {
+interface OrderStateProps {
   children: React.ReactNode;
 }
 
-const OrdersState: React.FC<OrdersStateProps> = ({ children }) => {
+const OrderState: React.FC<OrderStateProps> = ({ children }) => {
   const [state, dispatch] = useReducer<React.Reducer<OrderStateType, Action>>(
-    OrdersReducer,
+    OrderReducer,
     initialState
   );
 
@@ -42,12 +42,12 @@ const OrdersState: React.FC<OrdersStateProps> = ({ children }) => {
   };
 
   return (
-    <OrdersContext.Provider
+    <OrderContext.Provider
       value={{ state, selectDish, saveOrder, showSummary }}
     >
       {children}
-    </OrdersContext.Provider>
+    </OrderContext.Provider>
   );
 };
 
-export default OrdersState;
+export default OrderState;

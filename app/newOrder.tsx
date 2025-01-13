@@ -12,10 +12,7 @@ export default function NewOrder() {
     <Box style={container}>
       <View style={[content, styles.content]}>
         <ButtonGroup>
-          <Button
-            className="px-4 py-2 rounded-md text-primary-400"
-            action="primary"
-          >
+          <Button className="px-4 py-2 rounded-md" action="primary">
             <ButtonText className="bold uppercase text-typography-900">
               <Link href="/menu">Nueva Orden</Link>
             </ButtonText>

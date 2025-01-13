@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { CirclePlus } from "lucide-react-native";
 import { router } from "expo-router";
 
-import OrdersContext from "@/context/orders/ordersContext";
+import OrdersContext from "@/context/order/orderContext";
 import { Heading } from "@/components/ui/heading";
 import { Box } from "@/components/ui/box";
 import { Image } from "@/components/ui/image";
@@ -38,7 +38,7 @@ export default function DishDetail() {
             <Text className="text-neutral-400" size="md">
               {description}
             </Text>
-            <Text className="text-slate-950" size="sm" bold>
+            <Text className="text-primary-900" size="sm" bold>
               Precio: ${price}
             </Text>
           </Center>
@@ -51,8 +51,8 @@ export default function DishDetail() {
         placement="bottom center"
         onPress={handlePress}
       >
-        <FabIcon as={CirclePlus} className="text-slate-950" />
-        <FabLabel className="text-slate-950" bold>
+        <FabIcon as={CirclePlus} className="text-primary-900" />
+        <FabLabel className="text-primary-900" bold>
           Agregar Platillo
         </FabLabel>
       </Fab>

@@ -1,7 +1,7 @@
 import { CONFIRM_ORDER_DISH, SELECT_PRODUCT, SHOW_SUMMARY } from "@/types";
 import { OrderStateType, Action } from "../types";
 
-const OrdersReducer = (
+const OrderReducer = (
   state: OrderStateType,
   action: Action
 ): OrderStateType => {
@@ -17,4 +17,4 @@ const OrdersReducer = (
   }
 };
 
-export default OrdersReducer;
+export default OrderReducer;

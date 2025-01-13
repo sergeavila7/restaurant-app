@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import { View, StyleSheet, FlatList, Pressable } from "react-native";
 import { Link, router } from "expo-router";
 import FirebaseContext from "@/context/firebase/firebaseContext";
-import OrderContext from "@/context/orders/ordersContext";
+import OrderContext from "@/context/order/orderContext";
 import { Box } from "@/components/ui/box";
 import { Divider } from "@/components/ui/divider";
 import { Image } from "@/components/ui/image";
@@ -77,13 +77,13 @@ export default function Menu() {
               <Image size="md" source={{ uri: image }} alt={dishName} />
             )}
             <View style={styles.containerText}>
-              <Text className="text-slate-950" size="lg" bold>
+              <Text className="text-primary-900" size="lg" bold>
                 {dishName}
               </Text>
               <Text className="text-neutral-400" size="md">
                 {description}
               </Text>
-              <Text className="text-slate-950" size="sm" bold>
+              <Text className="text-primary-900" size="sm" bold>
                 Precio: ${price}
               </Text>
             </View>

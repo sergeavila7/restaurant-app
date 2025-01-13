@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 import { router } from "expo-router";
 import { Plus, Minus } from "lucide-react-native";
-import OrdersContext from "@/context/orders/ordersContext";
+import OrdersContext from "@/context/order/orderContext";
 
 import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
@@ -88,7 +88,7 @@ export default function DishForm() {
           </Box>
         </HStack>
         <Box className="mt-5">
-          <Text className="text-slate-950" bold>
+          <Text className="text-primary-900" bold>
             Subtotal: ${total}
           </Text>
         </Box>
@@ -99,8 +99,8 @@ export default function DishForm() {
         placement="bottom center"
         onPress={handlePress}
       >
-        <FabIcon as={CirclePlus} className="text-slate-950" />
-        <FabLabel className="text-slate-950" bold>
+        <FabIcon as={CirclePlus} className="text-primary-900" />
+        <FabLabel className="text-primary-900" bold>
           Agregar al Pedido
         </FabLabel>
       </Fab>
