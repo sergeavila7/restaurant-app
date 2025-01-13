@@ -1,7 +1,12 @@
 import React, { useReducer } from "react";
 import OrderReducer from "../../../context/order/orderReducer";
 import OrderContext from "../../../context/order/orderContext";
-import { CONFIRM_ORDER_DISH, SELECT_PRODUCT, SHOW_SUMMARY } from "@/types";
+import {
+  CONFIRM_ORDER_DISH,
+  DELETE_PRODUCT,
+  SELECT_PRODUCT,
+  SHOW_SUMMARY,
+} from "@/types";
 import { Action, Dish, Order, OrderStateType } from "@/context/types";
 
 const initialState: OrderStateType = {
@@ -41,9 +46,16 @@ const OrderState: React.FC<OrderStateProps> = ({ children }) => {
     });
   };
 
+  const deleteProduct = (id: string) => {
+    dispatch({
+      type: DELETE_PRODUCT,
+      payload: id,
+    });
+  };
+
   return (
     <OrderContext.Provider
-      value={{ state, selectDish, saveOrder, showSummary }}
+      value={{ state, selectDish, saveOrder, showSummary, deleteProduct }}
     >
       {children}
     </OrderContext.Provider>

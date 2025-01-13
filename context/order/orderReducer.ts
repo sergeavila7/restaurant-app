@@ -1,4 +1,9 @@
-import { CONFIRM_ORDER_DISH, SELECT_PRODUCT, SHOW_SUMMARY } from "@/types";
+import {
+  CONFIRM_ORDER_DISH,
+  DELETE_PRODUCT,
+  SELECT_PRODUCT,
+  SHOW_SUMMARY,
+} from "@/types";
 import { OrderStateType, Action } from "../types";
 
 const OrderReducer = (
@@ -12,6 +17,11 @@ const OrderReducer = (
       return { ...state, order: [...state.order, action.payload] };
     case SHOW_SUMMARY:
       return { ...state, total: action.payload };
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        order: state.order.filter((product) => product.id != action.payload),
+      };
     default:
       return state;
   }

@@ -22,6 +22,7 @@ export default function OrderSummary() {
   const {
     state: { order, total },
     showSummary,
+    deleteProduct,
   } = useContext(OrdersContext);
 
   useEffect(() => {
@@ -56,8 +57,27 @@ export default function OrderSummary() {
     );
   };
 
+  const confirmDelete = (id: string) => {
+    Alert.alert(
+      "Deseas confirmar tu pedido?",
+      "Un pedido confirmado ya no se podra modificar",
+      [
+        {
+          text: "Confirmar",
+          onPress: () => {
+            deleteProduct(id);
+          },
+        },
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+      ]
+    );
+  };
+
   const renderOrderItem = ({ item }: { item: Order }) => {
-    const { dishName, image, price, quantity } = item;
+    const { id, dishName, image, price, quantity } = item;
 
     return (
       <HStack className="bg-white rounded mt-4 p-4" space="md" reversed={false}>
@@ -68,7 +88,18 @@ export default function OrderSummary() {
           <Text className="text-primary-900">{dishName}</Text>
           <Text className="text-primary-900">Cantidad: {quantity}</Text>
           <Text className="text-primary-900">Precio: ${price}</Text>
-          <Divider className="my-0.5" />
+          <Button
+            size="xs"
+            action="negative"
+            onPress={() => {
+              confirmDelete(id);
+            }}
+          >
+            <ButtonText className="w-full bold text-center uppercase">
+              Eliminar
+            </ButtonText>
+          </Button>
+          <Divider className="mt-4" />
         </Box>
       </HStack>
     );
